@@ -1,0 +1,16 @@
+const Products = require('../models/Products.js');
+
+module.exports = async (req, res)=>{
+    try {
+        const products = await Products.findById(req.params.id); 
+        console.log(products); // Log product to check its value
+        if (products) {
+            res.render('productReview', { products }); // Pass single product to the view
+        } else {
+            res.status(404).send('Product not found'); // Handle case where product is not found
+        }
+    } catch (error) {
+        res.status(500).send('Error fetching product here in the product review');
+        console.log(error); // Log the error for debugging
+    }
+}

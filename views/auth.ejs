@@ -1,0 +1,48 @@
+<%- include('layout/head'); %>
+
+<%- include('layout/nav'); %>
+
+<main class="main-register-login">
+
+<div class="register-login">
+
+    <h1 class="register-head"> Register Here</h1>
+
+    <form action="/users/auth" method="POST" class="auth-form" id="auth-form">
+
+        <div class="username">
+            <label for="username" style="font-weight: 900;">Username: </label>
+            <input id="username" name='username' type="text" style="width: 250px; height: 50px;" required />
+        </div>
+        
+        <div class="password">
+            <label for="password" style="font-weight: 900;">Password: </label>
+            <input type='password' class="form-control" id="password" name="password" style="width: 250px; height: 50px;" required />
+        </div>
+        
+        <input type='hidden' name="action" id="action" value="">
+
+        <div class="auth-btn">
+            <button id="loginButton" type="button" onclick="submitForm('login')" style="width: 200px;color: white; background-color: red; height: 40px; text-align: center">Login</button>
+            <button id="registerButton" type="button" onclick="submitForm('register')" style="width: 200px;color: white; background-color: red; height: 40px; text-align: center">Register</button>
+        </div>
+    </form>
+    <a href="/auth/google">
+        <button id="GoogleButton" type="button" style="width: 200px;color: white; cursor: pointer; background-color: rgba(235, 138, 135, 0.973); height: 40px; text-align: center">Google Login</button>
+    </a>
+</div>
+
+</main>
+
+<%- include('layout/footer'); %>
+
+<script>
+    function submitForm(action) {
+        document.getElementById('action').value = action; // Set the action
+        document.getElementById('auth-form').submit(); // Submit the form
+        console.log(action);
+    }
+</script>
+
+<script src="index.js"></script>   
+<script src="https://kit.fontawesome.com/fcf5976527.js" crossorigin="anonymous"></script>

@@ -1,0 +1,50 @@
+<%- include('./layout/head'); %>
+
+<%- include('./layout/nav'); %>
+
+<main class="main-jersey">
+    <div class="product-section">
+        <div class="product-left">
+          <!-- <img src=/images/image1.jpg" height ='200px'> --> 
+           <img src="/<%= products.image_url %>"  alt ='man what' height ='200px'>
+        </div>
+
+        <div class="product-right">
+            <h1  style="font-size: 1.5em; font-family: Gugi; margin-bottom: 2em;"><%= products.productName %></h1>
+            <p  style="font-size: 1.2em; font-family: Gugi; margin-bottom: 2em;"><%= products.productDetails %></p>
+            <h1  id="price" style="color: red; margin-bottom: 2em;">$<%= products.productPrice %></h1>
+            <form class="product-form">
+                    <span class="span-flex">
+                        <div class="span-right" style="margin-right: 1em; margin-bottom: 1em;">
+                            <h1 class="quantity-head" id="quantity-head" style="font-size: large; margin-right: 2em;">Quantity:</h1>
+                            <span>
+                                <span id="decrease" style="margin-right: 2em; cursor: pointer;"> - </span>
+                                <input type="number" id ="quantity" name="quantity" value=" " min ='0' max='1000' step ="1" size="1"  style="color: black; text-align: center; width: 50px;" />
+                                <span id="increase" style="margin-right: 2em; cursor:pointer;"> + </span>
+                            </span>
+                        </div>
+                        <button class="product-addcart" style="margin-right: 2em;  background-color: rgba(119, 0, 255, 0.541); font-size: large;">Add Bag</button>
+                        <button class="product-buynow" style=" background-color: rgba(119, 0, 255, 0.541); font-size: large;">Buy Now</button>
+                    </span> 
+            </form>
+        </div>       
+    </div>
+</main>
+
+<%- include('layout/footer'); %>
+
+<script>
+    document.getElementById('increase').addEventListener('click', ()=>{
+    let quantityInput = document.getElementById('quantity');
+    quantityInput.stepUp();
+})
+
+
+document.getElementById('decrease').addEventListener('click', ()=>{
+    let quantityInput = document.getElementById('quantity');
+    quantityInput.stepDown();
+})
+</script>
+
+
+<script src="https://kit.fontawesome.com/fcf5976527.js" crossorigin="anonymous"></script>

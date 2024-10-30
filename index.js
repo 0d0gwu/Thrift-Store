@@ -1,70 +1,75 @@
-const jerseys = document.querySelectorAll('.jersey');
+const express = require('express');
+const path = require('path');
+const app = express();
+const mongoose = require('mongoose');
+const StoreUser = require('./models/Users.js');
+const productReview = '/product/:id' ;
+const bodyParser = require('body-parser');
+const { OAuth2Client } = require('google-auth-library');
+const client_id= "1044282491612-ijgs1rdqg7rvmq7ct2alrssg9t6h4kp9.apps.googleusercontent.com";
+const client = new OAuth2Client(client_id);
+
+//controller imports
+const homePageController = require('./controller/home');
+const aboutPageController = require('./controller/about');
+const productPageController = require('./controller/product');
+const productReviewController = require('./controller/productReview');
+const registerPageController = require('./controller/registerPage.js');
+const authenticateUsers = require('./controller/auth.js');
+
+//Implementing Session via express-session middleware
+const expressSession = require('express-session');
 
 
+app.use(expressSession({
+    secret: 'cat'
+}))
+
+mongoose.connect('mongodb://localhost/store_database');
 
 
-function attachEventListeners(jersey) {
+//create body parsing middleware
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    const myModal = document.querySelector('#myModal');
+app.set('view engine', 'ejs');
 
-    const modal = document.querySelector('.modal');
+app.set('views', __dirname + '/views');
 
-    const jerseyBtn = jersey.querySelector('.jersey-btn');
+app.use(express.static(path.join(__dirname, 'public')));
 
-    const image = jersey.querySelector('.image');
+app.get('/', homePageController)
 
-    const imageSrc = image.src;
+app.get('/product', productPageController);
 
-    var modalImage = document.querySelector('.modal-img');
+app.get('/about', aboutPageController);
 
-    const close = document.querySelector('.close-modal');
+app.get('/auth', registerPageController);
 
-    const hiddenDiv = jersey.querySelector('.hidden-div');
+//create google authentication  - redirect to google for auth
 
-    const hiddenHead = jersey.querySelector('.hidden-head').innerHTML;
-
-    const hiddenPar = jersey.querySelector('.hidden-par').innerHTML;
-
-    const updateHead = document.querySelector('.update-head');
-
-    const updatePar = document.querySelector('.update-par'); 
-
-    let timeoutId;
-
-    jersey.addEventListener('mouseenter', function() {
-        timeoutId = setTimeout(function() {
-            jerseyBtn.style.display = 'block';
-        }, 500);
-        console.log(timeoutId);
+app.get('/auth/google', async(req, res)=>{
+    const redirectUri = "http://localhost:3000/"
+    const url = client.generateAuthUrl({
+        access_type:'offline',
+        scope: ['email'],
+        redirect_uri: redirectUri,
     });
+    res.redirect(url);
+})
 
-    jersey.addEventListener('mouseleave', function() {
-        clearTimeout(timeoutId); // Clear the timeout if leaving before the delay
-        jerseyBtn.style.display = 'none'; // Hide the button on mouseleave
-    });
+//callback route for google to redirect to
 
-   console.log(jerseyBtn);
-  // console.log(image);
 
-    close.onclick = function(){
-        modal.style.display = 'none';
-    }
 
-  jerseyBtn.onclick = function() {
-    modal.style.display = 'block';
-    modalImage.src= imageSrc;
+app.post('/users/auth', authenticateUsers);
 
-    console.log(updateHead.innerHTML =  hiddenHead );
-    updatePar.innerHTML = hiddenPar;
-    console.log(modal);
-    console.log(modalImage);
-  }
-}
 
-jerseys.forEach(function(jersey) {
-    attachEventListeners(jersey);
+app.get(productReview, productReviewController)
+
+
+app.listen(3000, ()=> {
+    console.log('App is running on Port 3000')
 });
-
-
-
-

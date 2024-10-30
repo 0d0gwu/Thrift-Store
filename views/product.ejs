@@ -1,0 +1,19 @@
+<%- include('layout/head'); %>
+<%- include('layout/nav'); %>
+
+<div class="jersey-section main-product">
+    
+    <div class=" jersey-container imagine">
+     <% products.forEach((product) =>{ %>
+                    <div class="main-product-section jersey">
+                        <img src="<%= product.image_url %>" class="image" />
+                        <a href="/product/<%= product._id %>" class="jersey-btn">View Details</a>
+                    </div>
+     <% }) %>
+    </div>
+</div>
+
+<%- include('layout/footer'); %>
+
+<script src="index.js"></script>   
+<script src="https://kit.fontawesome.com/fcf5976527.js" crossorigin="anonymous"></script>
