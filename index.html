@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layout/head'); %>
+
+<body>
+    <!-- Navigation section -->
+        <%- include('layout/nav'); %>
+        <!-- main section-->
+
+        <div class="main">
+            <h1 class="mainSection1">T9</h1>
+            <h2 class="mainSection2">THRIFTY 9JERIAN</h2>
+            
+            <form method="GET" action="/product">
+                <button class="main-btn">SHOP NOW</button>
+            </form>
+        </div>
+
+        <!--Collection Section-->
+
+        <div class="collection">
+            <div class="left-men">
+               <a href="/product" style="text-decoration: none; color: white"><h1>Men's Collection</h1></a>
+            </div>
+            <div class="right-women">
+                <a href="/product" style="text-decoration: none; color: white"> <h1>Women's Collection</h1></a>
+            </div>
+        </div>
+
+        <!--Shop Sale Section-->
+
+        <div class="sale">
+            <h1 class="">Save More Than Money!</h1>
+            <div class="btn-container">
+                <h1>FINAL SALE 40%-60%</h1>
+                <form method="GET" action="/product">
+                    <button class="collection-btn">SHOP SALE</button>
+                </form>
+            </div>
+        </div>
+
+        <!--Shop Jersey Section-->
+
+       <!-- <div class="jersey-section">
+            <div class="jersey-container">
+            
+                    <div class="jersey jersey1">
+                        <img src="<%= products.image_url %>" class="image1 image"/>
+                        <div class="hidden-div">
+                            <h1 class="hidden-head"><%= products.productName %></h1>
+                            <p class="hidden-par"><%= products.productDetails %></p>
+                        </div>
+                        <a href="/product class="jersey-btn">View Details</a>
+                    </div>
+                
+            </div>
+        </div> -->
+        
+        <div class="jersey-section">
+            <div class="jersey-container">
+                <!-- <% products.forEach((product) =>{ %>
+
+                    <div class="jersey">
+                        <img src="<%= product.image_url %>" class="image" />
+                        <a href="/product/<%= product._id %>" class="jersey-btn">View Details</a>
+                    </div>
+
+             <%   }) %>  -->
+
+             <% if (products.length === 0) { %>
+                <p>No products available.</p>
+            <% } else { %>
+                <% products.forEach((product) => { %>
+                    <div class="jersey">
+                        <img src="<%= product.image_url %>" class="image" />
+                      <div class="testDiv">
+                        <a href="/product/<%= product._id %>" class="jersey-btn">View Details</a>
+                      </div>  
+                    </div>
+                <% }); %>
+            <% } %>
+            
+
+            </div>
+        </div>
+
+
+<!---
+
+        <div class="jersey-section">
+            <div  class="jersey-container">
+
+                <div class="jersey jersey1">
+                    <img src="images/image1.jpg" class="image1  image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">Vintage France 98 Jersey</h1>
+                        <p class="hidden-par">DESIGN midi with ruched sides in blue</p>
+                    </div>
+                   
+                    <a href="/product" class="jersey-btn"> View Details </a>
+                 
+                    
+                </div>
+    
+                <div class="jersey jersey2">
+                    <img src="images/image2.webp" class=" image2 image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">DC Hornets Jersey 04</h1>
+                        <p class="hidden-par">DESIGN midi T9 clothing in Red</p>
+                    </div>
+                    <a href="/product" class="jersey-btn"> View Details </a>
+                </div>
+    
+                <div class="jersey jersey3">
+                    <img src="images/image3.webp" class=" image3 image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">Rookies Vntage Baseball Jersey</h1>
+                        <p class="hidden-par">DESIGN midi T9 clothing in yellow. 
+                            Rookies Vntage Baseball Jersey</p>
+                    </div>
+                    <a href="/product" class="jersey-btn"> View Details </a>
+                </div>
+    
+                <div class="jersey jersey4">
+                    <img src="images/image4.webp" class="image4 image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">Toronto Maple Leafs 2005</h1>
+                        <p class="hidden-par">DESIGN Toronto Maple leafs Jersey. 
+                            Toronto Maple Leafs 2005</p>
+                    </div>
+                    <a href="/product" class="jersey-btn"> View Details </a>
+                </div>
+    
+                <div class="jersey jersey5">
+                    <img src="images/image5.jpg" class="image5 image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">Harley Davidson Vintage Polo</h1>
+                        <p class="hidden-par">DESIGN Harley Davidson Vintage Polo in white</p>
+                    </div>
+                    <a href="/product" class="jersey-btn"> View Details </a>
+                </div>
+    
+                <div class="jersey jersey6">
+                    <img src="images/lakers.jpg" class="image6 image">
+                    <div class="hidden-div">
+                        <h1 class="hidden-head">KOBE Vinta Lakers Jersey</h1>
+                        <p class="hidden-par">DESIGN KOBE Vinta Lakers Jersey</p>
+                    </div>
+                    <a href="/product/<%= products._id %>" class="jersey-btn"> View Details </a>
+                </div>
+            </div>
+        </div>  -->
+        <!--Footer -->
+
+        <%- include('layout/footer'); %>
+
+    <script src="index.js"></script>   
+    <script src="https://kit.fontawesome.com/fcf5976527.js" crossorigin="anonymous"></script>
+</body>
+</html>
